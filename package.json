@@ -1,0 +1,14 @@
+{
+  "name": "debug-hunger",
+  "version": "1.0.0",
+  "description": "keep eating",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "gopi chand",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.13.2"
+  }
+}
