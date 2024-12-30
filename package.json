@@ -2,13 +2,22 @@
   "name": "debug-hunger",
   "version": "1.0.0",
   "description": "keep eating",
-  "main": "index.js",
   "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
     "test": "jest"
   },
   "author": "gopi chand",
   "license": "ISC",
   "devDependencies": {
-    "parcel": "^2.13.2"
+    "parcel": "^2.13.3",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "@types/react-router-dom": "^5.3.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router": "^7.1.1",
+    "react-router-dom": "^7.1.1"
   }
 }
