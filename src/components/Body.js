@@ -1,4 +1,4 @@
-import RestaurantCard, { withPromtedLabel } from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import { useState, useEffect, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -11,9 +11,10 @@ const Body = ()=>{
     const [filteredRestaurant, setFilteredRestaurant] = useState([]);
 
     const [searchText, setSearchText] = useState("");
-    const RestaurantCardPromoted = withPromtedLabel(RestaurantCard);
+    const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
     // Whenever state variables update, react triggers a reconciliation cycle(re-renders the component)
-    console.log("Body Rendered");
+    //console.log("Body Rendered");
+    
     useEffect(() => {
       fetchData();
     }, []);
@@ -24,10 +25,10 @@ const Body = ()=>{
       const json = await data.json();
       // Optional Chaining
       setListOfRestraunt(
-        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
       );
       setFilteredRestaurant(
-        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
       );
     };
 
@@ -45,70 +46,72 @@ const Body = ()=>{
     return listOfRestaurants.length === 0 ? (
       <Shimmer />
     ) : (
-      <div className="body">
-        <div className="filter flex">
-          <div className="search m-4 p-4">
-            <input
-              type="text"
-              data-testid="searchInput"
-              className="border border-solid border-black"
-              value={searchText}
-              onChange={(e) => {
-                setSearchText(e.target.value);
-              }}
-            />
-            <button
-             className="px-4 py-2 bg-green-100 m-4 rounded-lg"
-             
-              onClick={() => {
-                // Filter the restraunt cards and update the UI
-                // searchText
-                console.log(searchText);
-                const filteredRestaurant = listOfRestaurants.filter((res) =>
-                  res.info.name.toLowerCase().includes(searchText.toLowerCase())
-                );
-                setFilteredRestaurant(filteredRestaurant);
-              }}
-            >
-              Search
-            </button>
-          </div>
-          <div className="search m-4 p-4 flex items-center">
+      <div className="body"> 
+      {/* Filter Section */}
+      <div className="filter flex flex-col md:flex-row items-center justify-center gap-6 p-6 min-h-[20vh] rounded-xl shadow-lg">
+        <div className="search flex flex-col md:flex-row items-center gap-4">
+          <input
+            type="text"
+            data-testid="searchInput"
+            className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#936E00] bg-white placeholder-gray-600"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            placeholder="Search for restaurants..."
+          />
           <button
-            className="px-4 py-2 bg-gray-100 rounded-lg"
+            className="px-6 py-2 bg-[#936E00] text-white font-semibold rounded-lg shadow-md hover:brightness-110 transition-all hover:scale-105"
             onClick={() => {
-              const filteredList = listOfRestaurants.filter(
-                (res) => res.info.avgRating > 4
+              console.log(searchText);
+              const filteredRestaurant = listOfRestaurants.filter((res) =>
+                res.info.name.toLowerCase().includes(searchText.toLowerCase())
               );
-              setFilteredRestaurant(filteredList);
+              setFilteredRestaurant(filteredRestaurant);
             }}
           >
-            Top Rated Restaurants
+            Search
           </button>
-          <div className="search m-4 p-4 flex items-center">
-          <label>UserName : </label>
+        </div>
+    
+        <button
+          className="px-6 py-2 bg-[#F8CB46] text-black font-semibold rounded-lg shadow-md hover:brightness-110 transition-all hover:scale-105"
+          onClick={() => {
+            const filteredList = listOfRestaurants.filter(
+              (res) => res.info.avgRating > 4
+            );
+            setFilteredRestaurant(filteredList);
+          }}
+        >
+          Top Rated Restaurants
+        </button>
+    
+        <div className="search flex items-center gap-2">
+          <label className="text-white font-semibold">UserName:</label>
           <input
-            className="border border-black p-2"
+            className="border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#936E00] bg-white placeholder-gray-600"
             value={loggedInUser}
             onChange={(e) => setUserName(e.target.value)}
+            placeholder="Enter username"
           />
         </div>
-        </div>
-        </div>
-        <div className="flex flex-wrap">
-          {filteredRestaurant.map((restaurant) => (
-            <Link
-            key={restaurant?.info.id}
-            to={"/restaurants/" + restaurant?.info.id}
-          >   {restaurant.info.promoted ? (
-            <RestaurantCardPromoted resData={restaurant?.info} />
-          ) : (
-            <RestaurantCard resData={restaurant?.info} />
-          )}
-          </Link>
-          ))}
-        </div>
       </div>
+    
+      {/* Restaurant Cards Section */}
+      <div className="flex flex-wrap gap-4">
+        {filteredRestaurant.map(({ info }) => {
+          // Wrap the card with the Promoted HOC if aggregatedDiscountInfoV3 is available.
+          const CardComponent = info.aggregatedDiscountInfoV3
+            ? withPromotedLabel(RestaurantCard)
+            : RestaurantCard;
+    
+          return (
+            <Link to={`/restaurants/${info.id}`} key={info.id} className="no-underline">
+              <CardComponent resData={{ info }} />
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+    
     );
   };
   

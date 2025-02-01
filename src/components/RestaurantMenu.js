@@ -28,21 +28,27 @@ const RestaurantMenu = () => {
 
   return (
     <div className="text-center">
-      <h1 className="font-bold my-6 text-2xl">{info.name || 'Restaurant Name'}</h1>
-      <p className="font-bold text-lg">
-      {info.cuisines?.join(', ') || 'Cuisines not available'}
-      </p>
-      <div className="text-xs ">{info.areaName || 'Area Name'}, {info.city || 'City'}</div>
-      
-      {categories.map((category, index) => (
-                    <RestaurantCategory 
-                        key={category?.card?.card?.title || index} 
-                        data={category?.card?.card}
-                        showItems={index === showIndex}
-                        setShowIndex={() => setShowIndex(index)} 
-                    />
-                ))}
-    </div>
+  <h1 className="font-bold my-6 text-2xl">
+    {info.name || "Restaurant Name"}
+  </h1>
+  <p className="font-bold text-lg">
+    {info.cuisines?.join(", ") || "Cuisines not available"}
+  </p>
+  <div className="text-xs text-gray-600">
+    {info.areaName || "Area Name"}, {info.city || "City"}
+  </div>
+
+  {categories.map((category, index) => (
+    <RestaurantCategory
+      key={category?.card?.card?.title || index}
+      data={category?.card?.card}
+      showItems={index === showIndex}
+      setShowIndex={() => setShowIndex(index)}
+    />
+  ))}
+</div>
+
+
   );
 };
 export default RestaurantMenu;
