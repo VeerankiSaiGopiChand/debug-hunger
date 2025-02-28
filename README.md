@@ -15,8 +15,8 @@ It features **restaurant search**, **cart functionality**, and other essential f
 
 ---
 
-## 🎥 Demonstration
-Watch the demonstration video below to see the project in action:
+## 🎥 Live Preview
+Watch the screen-shared demo video below to see the project in action:
 
 https://github.com/user-attachments/assets/75ba1b74-4eb8-416c-ba9d-baca4bd67bea
 
