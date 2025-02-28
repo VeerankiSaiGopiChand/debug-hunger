@@ -63,7 +63,7 @@ Contributions are always welcome! Feel free to fork the repo, create a new branc
 For any queries or collaborations:
 
 📧 Email: gopichand4520@gmail.com  
-🐙 GitHub: [https://github.com/VeerankiSaiGopiChand]
+🐙 GitHub: [VeerankiSaiGopiChand](https://github.com/VeerankiSaiGopiChand)
 
 ---
 
