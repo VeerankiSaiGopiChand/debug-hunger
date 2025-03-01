@@ -25,6 +25,7 @@ https://github.com/user-attachments/assets/75ba1b74-4eb8-416c-ba9d-baca4bd67bea
 ## 🛠️ Tech Stack
 ### **Frontend:**
 - ⚛️ **React.js**: Responsive and interactive user interface.
+- 🔀 **React Router**: Smooth navigation experience, enabling seamless routing and dynamic page rendering.
 - 📦 **Redux Toolkit (RTK)**: Efficient state management.
 - 🌈 **Tailwind CSS**: Highly customizable styling with a modern design approach.
 - 🛠 **Jest & React Testing Library**: Unit tests for quality assurance.
